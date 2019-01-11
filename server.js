@@ -9,6 +9,7 @@ const routes      = require('./app/routes.js');
 const mongo       = require('mongodb').MongoClient;
 const passport    = require('passport');
 const cookieParser= require('cookie-parser')
+const cors        = require('cors');
 const app         = express();
 const http        = require('http').Server(app);
 const io          = require('socket.io')(http);
@@ -16,7 +17,7 @@ const sessionStore= new session.MemoryStore();
 
 
 fccTesting(app); //For FCC testing purposes
-
+app.use(cors());
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use(cookieParser());
 app.use(bodyParser.json());
