@@ -1,6 +1,7 @@
 $( document ).ready(function() {
     /*global io*/
   var socket = io();
+  
   socket.on('user', (data) => {
     $('#num-users').text(data.currentUsers+' users online');
     var message = data.name;
@@ -11,9 +12,11 @@ $( document ).ready(function() {
     }
     $('#messages').append($('<li>').html('<b>'+ message +'<\/b>'));
   })
+  
   socket.on('chat message', (data) => {
-    $('#messages').append($('<li>').html('<b>'+ data.name +'<\/b>:'));
+    $('#messages').append($('<li>').html('<b>'+ data.name +'<\/b>: '+ data.message));
   })
+  
   // Form submittion with new message in field with id 'm'
   $('form').submit(function(){
     var messageToSend = $('#m').val();
