@@ -8,6 +8,7 @@ const auth        = require('./app/auth.js');
 const routes      = require('./app/routes.js');
 const mongo       = require('mongodb').MongoClient;
 const passport    = require('passport');
+const passportSocketIo = require('passport.socketio');
 const cookieParser= require('cookie-parser')
 const cors        = require('cors');
 const app         = express();
@@ -32,6 +33,12 @@ app.use(session({
   store: sessionStore,
 }));
 
+io.use(passportSocketIo.authorize({
+  cookieParser: cookieParser,
+  key:          'express.sid',
+  secret:       process.env.SESSION_SECRET,
+  store:        sessionStore
+}));
 
 mongo.connect(process.env.DATABASE, (err, db) => {
     if(err) console.log('Database error: ' + err);
@@ -47,7 +54,8 @@ mongo.connect(process.env.DATABASE, (err, db) => {
     io.on('connection', socket => {
       currentUsers++;
       io.emit('user count', currentUsers);
-      console.log('A user has connected...');
+      //console.log('A user has connected...');
+       console.log('user ' + socket.request.user.name + ' connected');
       socket.on('disconnect', () => {
       currentUsers--;
       io.emit('user count', currentUsers);
