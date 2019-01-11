@@ -1,22 +1,50 @@
-// server.js
-// where your node app starts
+'use strict';
 
-// init project
-var express = require('express');
-var app = express();
+const express     = require('express');
+const session     = require('express-session');
+const bodyParser  = require('body-parser');
+const fccTesting  = require('./freeCodeCamp/fcctesting.js');
+const auth        = require('./app/auth.js');
+const routes      = require('./app/routes.js');
+const mongo       = require('mongodb').MongoClient;
+const passport    = require('passport');
+const cookieParser= require('cookie-parser')
+const app         = express();
+const http        = require('http').Server(app);
+const sessionStore= new session.MemoryStore();
 
-// we've started you off with Express, 
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
-// http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'));
+fccTesting(app); //For FCC testing purposes
 
-// http://expressjs.com/en/starter/basic-routing.html
-app.get('/', function(request, response) {
-  response.sendFile(__dirname + '/views/index.html');
-});
+app.use('/public', express.static(process.cwd() + '/public'));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'pug')
 
-// listen for requests :)
-var listener = app.listen(process.env.PORT, function() {
-  console.log('Your app is listening on port ' + listener.address().port);
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  key: 'express.sid',
+  store: sessionStore,
+}));
+
+
+mongo.connect(process.env.DATABASE, (err, db) => {
+    if(err) console.log('Database error: ' + err);
+  
+    auth(app, db);
+    routes(app, db);
+      
+    http.listen(process.env.PORT || 3000);
+
+  
+    //start socket.io code  
+
+  
+
+    //end socket.io code
+  
+  
 });
