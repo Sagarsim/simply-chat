@@ -48,6 +48,11 @@ mongo.connect(process.env.DATABASE, (err, db) => {
       currentUsers++;
       io.emit('user count', currentUsers);
       console.log('A user has connected...');
+      socket.on('disconnect', () => {
+      currentUsers--;
+      io.emit('user count', currentUsers);
+      console.log('A user has disconnected...');
+      })
     })
       
 
