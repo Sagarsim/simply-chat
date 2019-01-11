@@ -43,7 +43,10 @@ mongo.connect(process.env.DATABASE, (err, db) => {
 
   
     //start socket.io code  
+    var currentUsers = 0;
     io.on('connection', socket => {
+      ++currentUsers;
+      io.emit('user count', currentUsers);
       console.log('A user has connected...');
     })
   
