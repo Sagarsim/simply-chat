@@ -23,7 +23,7 @@ app.use('/public', express.static(process.cwd() + '/public'));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set('view engine', 'pug')
+app.set('view engine', 'pug');
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
