@@ -40,12 +40,12 @@ io.use(passportSocketIo.authorize({
   store:        sessionStore
 }));
 
-mongo.connect(process.env.DATABASE, (err, db) => {
+mongo.connect("mongodb+srv://anonuser:sagar2797@cannabis.f2ejo.mongodb.net/test", (err, db) => {
     if(err) console.log('Database error: ' + err);
   
     auth(app, db);
     routes(app, db);
-      
+       
     http.listen(process.env.PORT || 3000);
 
   
