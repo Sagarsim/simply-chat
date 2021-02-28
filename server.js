@@ -47,7 +47,7 @@ mongo.connect("mongodb+srv://anonuser:sagar2797@cannabis.f2ejo.mongodb.net", (er
     auth(app, db);
     routes(app, db);
        
-    http.listen(process.env.PORT || 3000);
+    http.listen(process.env.PORT || 3003);
 
   
     //start socket.io code  
