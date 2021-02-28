@@ -11,19 +11,20 @@
 		"start": "node server.js"
 	},
 	"dependencies": {
-		"express": "^4.14.1",
-		"cors": "^2.8.1",
 		"body-parser": "^1.16.0",
-		"mongodb": "^2.2.22",
-		"helmet": "^3.4.0",
-		"pug": "^0.1.0",
-		"passport": "^0.3.2",
+		"cookie-parser": "^1.4.3",
+		"cors": "^2.8.1",
+		"dotenv": "^8.2.0",
+		"express": "^4.14.1",
 		"express-session": "^1.15.0",
-		"passport-local": "^1.0.0",
+		"helmet": "^3.4.0",
+		"mongodb": "^2.2.22",
+		"passport": "^0.3.2",
 		"passport-github": "^1.1.0",
-		"socket.io": "^1.7.2",
+		"passport-local": "^1.0.0",
 		"passport.socketio": "^3.7.0",
-		"cookie-parser": "^1.4.3"
+		"pug": "^0.1.0",
+		"socket.io": "^1.7.2"
 	},
 	"engines": {
 		"node": "10.14.2"

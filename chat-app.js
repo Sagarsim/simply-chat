@@ -15,6 +15,7 @@ const app         = express();
 const http        = require('http').Server(app);
 const io          = require('socket.io')(http);
 const sessionStore= new session.MemoryStore();
+require('dotenv').config()
 
 app.use(cors());
 fccTesting(app); //For FCC testing purposes
@@ -40,9 +41,9 @@ io.use(passportSocketIo.authorize({
   store:        sessionStore
 }));
 
-mongo.connect("mongodb+srv://anonuser:sagar2797@cannabis.f2ejo.mongodb.net", (err, mydb) => {
+mongo.connect("mongodb+srv://"+process.env.DB, (err, mydb) => {
   var db = mydb.db('test');
-    // if(err) console.log('Database error: ' + err);
+     if(err) console.log('Database error: ' + err);
    
     auth(app, db);
     routes(app, db);

@@ -24,7 +24,7 @@ module.exports = function (app, db) {
     passport.use(new GitHubStrategy({
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackURL: "https://stingy-page-deleted.glitch.me/auth/github/callback"
+        callbackURL: "http://13.127.208.254:3003/auth/github/callback"
       },
       function(accessToken, refreshToken, profile, cb) {
           db.collection('chatusers').findAndModify(
