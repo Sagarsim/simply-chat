@@ -1,11 +1,11 @@
 {
   "name": "simple-chat",
-  "author": "http://github.com/JosephLivengood",
+  "author": "Sagar Gujarati",
   "version": "0.0.1",
   "description": "What am I about?",
-  "main": "server.js",
+  "main": "chat-app.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node chat-app.js"
   },
   "dependencies": {
     "body-parser": "^1.16.0",
@@ -22,13 +22,6 @@
     "passport.socketio": "^3.7.0",
     "pug": "^0.1.0",
     "socket.io": "^1.7.2"
-  },
-  "engines": {
-    "node": "10.14.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://hyperdev.com/#!/project/welcome-project"
   },
   "keywords": [
     "node",
