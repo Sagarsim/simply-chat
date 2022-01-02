@@ -1,9 +1,0 @@
-name: simple-chat
-on:
-  workflow_dispatch:
-jobs:
-  beforeinstall:
-    runs-on: ['self-hosted','Linux','X64','simple-chat']
-    steps:
-      - name: run a script
-        run: cd /home/ec2-user/sagaranon/scripts && bash simple-chat.sh
