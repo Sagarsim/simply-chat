@@ -6,4 +6,4 @@ jobs:
   runs-on: ['self-hosted','Linux','X64','simple-chat']
   steps:
   - name: run a script
-    run: cd /home/ec2-user/sagaranon/actions-runner/scripts/ && bash simple-chat.sh
+    run: cd /home/ec2-user/sagaranon/github-action-chat/scripts/ && bash simple-chat.sh
