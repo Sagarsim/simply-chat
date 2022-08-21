@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
 
+//Access one-to-one chat
 const accessChat = asyncHandler(async (req, res) => {
   const {userId} = req.body;
 
@@ -36,7 +37,7 @@ const accessChat = asyncHandler(async (req, res) => {
 
       const getNewChat = await Chat.find({_id: newChat._id}).populate("users", "-password");
 
-      res.send(getNewChat);
+      res.status(200).send(getNewChat);
     } catch(err){
 
       res.status(400)
