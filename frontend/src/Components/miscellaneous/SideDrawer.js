@@ -2,6 +2,7 @@ import { Avatar, Box, Button, Menu, MenuButton, MenuDivider, MenuItem, MenuList,
 import {BellIcon, ChevronDownIcon} from '@chakra-ui/icons';
 import React, {useState} from 'react';
 import {ChatState} from '../../Context/ChatProvider';
+import ProfileModal from './ProfileModal';
 
 const SideDrawer = () => {
     const {user} = ChatState();
@@ -9,7 +10,7 @@ const SideDrawer = () => {
     const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
     const [loadingChat, setLoadingChat] = useState(false);
-
+    console.log("user ==>", user.name)
     return <>
         <Box
             display="flex"
@@ -48,7 +49,9 @@ const SideDrawer = () => {
                         />
                     </MenuButton>
                     <MenuList>
-                        <MenuItem>My Profile</MenuItem>
+                        <ProfileModal user={user}>
+                            <MenuItem>My Profile</MenuItem>
+                        </ProfileModal>
                         <MenuDivider />
                         <MenuItem>Logout</MenuItem>
                     </MenuList>
