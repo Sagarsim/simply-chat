@@ -28,10 +28,12 @@ import { ChatState } from "../../Context/ChatProvider";
 import ProfileModal from "./ProfileModal";
 import ChatLoading from "../ChatLoading";
 import UserListItem from "../UserAvatar/UserListItem";
+import { Spinner } from "@chakra-ui/spinner";
 
 const SideDrawer = () => {
-  const { user } = ChatState();
+  const { user, setSelectedChat, chats, setChats } = ChatState();
   const [search, setSearch] = useState("");
+
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
@@ -44,7 +46,32 @@ const SideDrawer = () => {
     history.push("/");
   };
 
-  const accessChat = (userId) => {};
+  const accessChat = async (userId) => {
+    try {
+      setLoadingChat(true);
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      const { data } = await axios.post("api/chat", { userId }, config);
+      if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
+      setSelectedChat(data);
+      setLoadingChat(false);
+      onClose();
+    } catch (error) {
+      toast({
+        title: "Error occurred while creating chat.",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
+    }
+  };
 
   const handleSearch = async () => {
     if (!search) {
@@ -155,6 +182,8 @@ const SideDrawer = () => {
                 />
               ))
             )}
+
+            {loadingChat && <Spinner ml="auto" d="flex" />}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
