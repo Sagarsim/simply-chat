@@ -82,7 +82,7 @@ const createGroupChat = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Atleast 2 members are required to create a group");
   }
-
+  users.push(req.user);
   try {
     const groupChat = await Chat.create({
       chatName: req.body.name,
