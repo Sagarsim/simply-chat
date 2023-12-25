@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FormControl, Input, useDisclosure, useToast } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/button";
 import axios from "axios";
 import {
@@ -10,6 +9,10 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  FormControl,
+  Input,
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/layout";
 import { ChatState } from "../../Context/ChatProvider";
@@ -53,7 +56,8 @@ const GroupChatModal = ({ children }) => {
   };
 
   const handleSubmit = async () => {
-    if (!groupChatName || !selectedUsers) {
+    console.log("selectedUsers ==>", selectedUsers);
+    if (!groupChatName || !selectedUsers.length) {
       toast({
         title: "Please fill all the fields.",
         status: "warning",
