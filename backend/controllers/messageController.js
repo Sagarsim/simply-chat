@@ -14,7 +14,7 @@ const sendMessage = asyncHandler(async (req, res) => {
   let newMessage = {
     content: content,
     sender: req.user._id,
-    chatId: chatId,
+    chat: chatId,
   };
 
   try {
@@ -25,10 +25,9 @@ const sendMessage = asyncHandler(async (req, res) => {
 
     message = await User.populate(message, {
       path: "chat.users",
-      select: "name pic email",
+      select: "name email pic",
     });
-
-    await Chat.findByIdAndUpdate(chatId, {
+    await Chat.findByIdAndUpdate(req.body.chatId, {
       latestMessage: message,
     });
 
@@ -39,4 +38,17 @@ const sendMessage = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { sendMessage };
+const allMessages = asyncHandler(async (req, res) => {
+  try {
+    const messages = await Message.find({ chat: req.params.chatId })
+      .populate("sender", "name email pic")
+      .populate("chat");
+
+    res.json(messages);
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+
+module.exports = { sendMessage, allMessages };
