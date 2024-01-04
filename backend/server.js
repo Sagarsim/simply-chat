@@ -19,9 +19,9 @@ app.get("/", (req, res) => {
   res.send("Chat app server.");
 });
 
-app.use("/api/user", userRoutes);
-app.use("/api/chat", chatRoutes);
-app.use("/api/message", messageRoutes);
+app.use("/v1/user", userRoutes);
+app.use("/v1/chat", chatRoutes);
+app.use("/v1/message", messageRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
