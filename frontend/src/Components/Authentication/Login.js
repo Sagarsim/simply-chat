@@ -11,12 +11,14 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { ChatState } from "../../Context/ChatProvider";
 
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
+  const { setUser } = ChatState();
 
   const toast = useToast();
   const history = useHistory();
@@ -57,9 +59,10 @@ const Login = () => {
         isClosable: true,
         position: "bottom",
       });
+      setUser(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
-      history.push("/chats");
       setLoading(false);
+      history.push("/chats");
     } catch (err) {
       toast({
         title: "Error Occurred!",
