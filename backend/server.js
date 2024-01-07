@@ -26,7 +26,39 @@ app.use("/v1/message", messageRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(
+const server = app.listen(
   process.env.PORT,
   console.log(`Server started on port ${process.env.PORT}`)
 );
+
+const io = require("socket.io")(server, {
+  pingTimeout: 60000,
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("Socket connected");
+  socket.on("setup", (userInfo) => {
+    socket.join(userInfo._id);
+    socket.emit("connected");
+  });
+
+  socket.on("join chat", (room) => {
+    socket.join(room);
+    console.log("User joined room: " + room);
+  });
+
+  socket.on("new message", (newMessageReceived) => {
+    const chat = newMessageReceived.chat;
+
+    if (!chat.users) return console.log("chat.users is undefined");
+
+    chat.users.forEach((user) => {
+      if (user._id === newMessageReceived.sender._id) return;
+
+      socket.in(user._id).emit("message received", newMessageReceived);
+    });
+  });
+});
