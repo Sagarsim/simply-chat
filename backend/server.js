@@ -64,4 +64,9 @@ io.on("connection", (socket) => {
       socket.in(user._id).emit("message received", newMessageReceived);
     });
   });
+
+  socket.off("setup", (userInfo) => {
+    console.log("USER DISCONNECTED");
+    socket.leave(userInfo._id);
+  });
 });

@@ -11,6 +11,8 @@ import { useToast } from "@chakra-ui/react";
 import ScrollableChat from "./ScrollableChat";
 import axios from "axios";
 import io from "socket.io-client";
+import animationData from "../Animations/typing.json";
+import Lottie from "react-lottie";
 import "./styles.css";
 
 const ENDPOINT = process.env.REACT_APP_API_BASE_URL;
@@ -24,6 +26,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [socketConnected, setSocketConnected] = useState(false);
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+
+  const defaultOptions = {
+    animationData: animationData,
+    loop: true,
+    autoplay: true,
+    rendererSettings: {
+      preserveAspactRatio: "xMidyMid slice",
+    },
+  };
 
   const { user, selectedChat, setSelectedChat } = ChatState();
 
@@ -199,7 +210,17 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           <Spinner size="xl" w={20} h={20} margin="auto" alignSelf="center" />
         ) : (
           <FormControl onKeyDown={sendMessage} isRequired mt={3}>
-            {isTyping ? <div>typing...</div> : <></>}
+            {isTyping ? (
+              <div>
+                <Lottie
+                  options={defaultOptions}
+                  width={70}
+                  style={{ marginBottom: 15, marginLeft: 0 }}
+                />
+              </div>
+            ) : (
+              <></>
+            )}
             <Input
               variant="filled"
               bg="#E0E0E0"
