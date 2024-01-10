@@ -36,7 +36,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     },
   };
 
-  const { user, selectedChat, setSelectedChat } = ChatState();
+  const {
+    user,
+    selectedChat,
+    setSelectedChat,
+    notifications,
+    setNotifications,
+  } = ChatState();
 
   const toast = useToast();
 
@@ -93,7 +99,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         !selectedChatCompare ||
         selectedChatCompare._id !== newMessageReceived.chat._id
       ) {
-        // send notification
+        if (!notifications.includes(newMessageReceived)) {
+          setNotifications([newMessageReceived, ...notifications]);
+          setFetchAgain(!fetchAgain);
+        }
       } else {
         setMessages([...messages, newMessageReceived]);
       }
@@ -138,6 +147,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   const handleTyping = (e) => {
     setNewMessage(e.target.value);
+
+    if (!socketConnected) return;
 
     if (!typing) {
       setTyping(true);

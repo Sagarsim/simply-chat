@@ -11,11 +11,9 @@ import {
   Tooltip,
   Drawer,
   DrawerBody,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
   useDisclosure,
   Input,
   useToast,
@@ -29,9 +27,19 @@ import ProfileModal from "./ProfileModal";
 import ChatLoading from "../ChatLoading";
 import UserListItem from "../UserAvatar/UserListItem";
 import { Spinner } from "@chakra-ui/spinner";
+import { getSender } from "../../Utils/ChatUtils";
+import NotificationBadge from "react-notification-badge";
+import { Effect } from "react-notification-badge";
 
 const SideDrawer = () => {
-  const { user, setSelectedChat, chats, setChats } = ChatState();
+  const {
+    user,
+    setSelectedChat,
+    chats,
+    setChats,
+    notifications,
+    setNotifications,
+  } = ChatState();
   const [search, setSearch] = useState("");
 
   const [searchResult, setSearchResult] = useState([]);
@@ -135,8 +143,32 @@ const SideDrawer = () => {
         <div>
           <Menu>
             <MenuButton p={1}>
+              <NotificationBadge
+                count={notifications.length}
+                effect={Effect.SCALE}
+              />
               <BellIcon fontSize="2xl" m={1} />
             </MenuButton>
+            <MenuList pl={3}>
+              {!notifications.length && "No New Messages."}
+              {notifications.map((notif) => {
+                return (
+                  <MenuItem
+                    key={notif._id}
+                    onClick={() => {
+                      setSelectedChat(notif.chat);
+                      setNotifications(
+                        notifications.filter((n) => n !== notif)
+                      );
+                    }}
+                  >
+                    {notif.chat.isGroupChat
+                      ? `New message in ${notif.chat.chatName}`
+                      : `New message from ${getSender(user, notif.chat.users)}`}
+                  </MenuItem>
+                );
+              })}
+            </MenuList>
           </Menu>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
