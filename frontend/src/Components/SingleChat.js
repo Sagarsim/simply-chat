@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { ChatState } from "../Context/ChatProvider";
-import { Box, FormControl, Input, Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  FormControl,
+  Input,
+  Spinner,
+  IconButton,
+  useToast,
+} from "@chakra-ui/react";
 import { Text } from "@chakra-ui/layout";
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { IconButton } from "@chakra-ui/react";
 import { getSender, getSenderFull } from "../Utils/ChatUtils";
 import ProfileModal from "../Components/miscellaneous/ProfileModal";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
-import { useToast } from "@chakra-ui/react";
 import ScrollableChat from "./ScrollableChat";
 import axios from "axios";
 import io from "socket.io-client";

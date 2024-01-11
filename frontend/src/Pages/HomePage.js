@@ -1,9 +1,18 @@
 import React, { useEffect } from "react";
-import { Container, Text, Box } from "@chakra-ui/react";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Container,
+  Text,
+  Box,
+} from "@chakra-ui/react";
 import Login from "../Components/Authentication/Login";
 import Signup from "../Components/Authentication/Signup";
 import { useHistory } from "react-router-dom";
+
 const HomePage = () => {
   const history = useHistory();
 

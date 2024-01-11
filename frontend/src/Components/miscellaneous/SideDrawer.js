@@ -28,8 +28,7 @@ import ChatLoading from "../ChatLoading";
 import UserListItem from "../UserAvatar/UserListItem";
 import { Spinner } from "@chakra-ui/spinner";
 import { getSender } from "../../Utils/ChatUtils";
-import NotificationBadge from "react-notification-badge";
-import { Effect } from "react-notification-badge";
+import NotificationBadge, { Effect } from "react-notification-badge";
 
 const SideDrawer = () => {
   const {
@@ -137,7 +136,7 @@ const SideDrawer = () => {
           </Button>
         </Tooltip>
         <Text fontSize="2xl" fontFamily="Work sans">
-          BeeChat
+          SimplyChat
         </Text>
         <div>
           <Menu>

@@ -1,5 +1,4 @@
 import React from "react";
-import { useDisclosure } from "@chakra-ui/react";
 import { IconButton, Button } from "@chakra-ui/button";
 import { ViewIcon } from "@chakra-ui/icons";
 import {
@@ -12,6 +11,7 @@ import {
   ModalCloseButton,
   Image,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 const ProfileModal = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
