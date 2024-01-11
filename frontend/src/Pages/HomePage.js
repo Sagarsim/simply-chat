@@ -41,7 +41,7 @@ const HomePage = () => {
           color="black"
           textAlign="center"
         >
-          Bee Chat
+          SimplyChat
         </Text>
       </Box>
       <Box
