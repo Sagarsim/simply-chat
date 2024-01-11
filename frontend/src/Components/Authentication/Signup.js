@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { validateEmail } from "../../Utils/AuthUtils";
 
 const Signup = () => {
   const [name, setName] = useState();
@@ -100,6 +101,18 @@ const Signup = () => {
     if (password !== confirmPassword) {
       toast({
         title: "Confirm password does not match.",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setLoading(false);
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      toast({
+        title: "Please enter valid email ID.",
         status: "warning",
         duration: 5000,
         isClosable: true,

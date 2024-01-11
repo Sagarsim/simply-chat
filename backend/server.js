@@ -45,9 +45,15 @@ const server = app.listen(
   console.log(`Server started on port ${process.env.PORT}`)
 );
 
-const io = require("socket.io")(server, {
+const socketConfig = {
   pingTimeout: 60000,
-});
+  cors: {},
+};
+
+if (process.env.NODE_ENV !== "production")
+  socketConfig.cors = { origin: "http://localhost:3000" };
+
+const io = require("socket.io")(server, socketConfig);
 
 io.on("connection", (socket) => {
   console.log("Socket connected");
