@@ -39,7 +39,6 @@ const GroupChatModal = ({ children }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      console.log("search ==>", query);
       const { data } = await axios.get(`v1/user?search=${query}`, config);
       setLoading(false);
       setSearchResult(data);
@@ -56,7 +55,6 @@ const GroupChatModal = ({ children }) => {
   };
 
   const handleSubmit = async () => {
-    console.log("selectedUsers ==>", selectedUsers);
     if (!groupChatName || !selectedUsers.length) {
       toast({
         title: "Please fill all the fields.",
@@ -115,7 +113,6 @@ const GroupChatModal = ({ children }) => {
       return;
     }
     setSelectedUsers([...selectedUsers, userToAdd]);
-    console.log("selectedusers ==>", selectedUsers);
   };
 
   const handleDelete = (delUser) => {

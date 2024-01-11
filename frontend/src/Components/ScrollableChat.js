@@ -11,7 +11,6 @@ import { Avatar, Tooltip } from "@chakra-ui/react";
 
 const ScrollableChat = ({ messages }) => {
   const { user } = ChatState();
-  console.log("messages ==>", messages);
   return (
     <ScrollableFeed>
       {messages &&
