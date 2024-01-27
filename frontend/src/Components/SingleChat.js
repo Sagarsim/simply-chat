@@ -115,8 +115,19 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   });
 
   const sendMessage = async (e) => {
-    if (e.key === "Enter" && newMessage) {
+    if (e.key === "Enter" && newMessage.trim().length) {
       try {
+        if (newMessage.length > 600) {
+          toast({
+            title: "Message too long!",
+            description: "Your message should be under 600 characters.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+          });
+          return;
+        }
         socket.emit("stop typing", selectedChat._id);
         const config = {
           headers: {
