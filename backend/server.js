@@ -44,6 +44,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(notFound);
 app.use(errorHandler);
 app.use(helmet());
+app.disable("x-powered-by");
 
 const server = app.listen(
   process.env.PORT,
