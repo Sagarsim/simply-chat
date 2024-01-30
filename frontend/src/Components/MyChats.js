@@ -22,6 +22,7 @@ const MyChats = ({ fetchAgain }) => {
       };
 
       const { data } = await axios.get("/v1/chat", config);
+      console.log("data ==>", data);
       setChats(data);
     } catch (error) {
       toast({
@@ -99,6 +100,11 @@ const MyChats = ({ fetchAgain }) => {
                   {!chat.isGroupChat
                     ? getSender(loggedUser, chat.users)
                     : chat.chatName}
+                </Text>
+                <Text fontSize="xs" fontWeight={600} noOfLines={1}>
+                  {chat.latestMessage
+                    ? `${chat.latestMessage.sender.name}: ${chat.latestMessage.content}`
+                    : ""}
                 </Text>
               </Box>
             ))}
