@@ -234,7 +234,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         </div>
 
         {loading ? (
-          <Spinner size="xl" w={20} h={20} margin="auto" alignSelf="center" />
+          <Spinner size="l" w={20} h={20} margin="auto" alignSelf="center" padding="40px" />
         ) : (
           <FormControl onKeyDown={sendMessage} isRequired mt={3}>
             {isTyping ? (
